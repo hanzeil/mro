@@ -37,7 +37,7 @@ function [L,hits,error_rate] = threshold_te(model,test_set,sample_weights,true_l
 % end
 
 ind = str2double(eval(model,test_set));
-ind
+
 hits = sum(ind==true_labels);
 error_rate = sum(sample_weights(ind~=true_labels));
 

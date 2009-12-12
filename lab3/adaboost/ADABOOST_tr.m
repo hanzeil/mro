@@ -70,7 +70,7 @@ samples_weight = ones(sample_n,1)/sample_n;
 
 for turn=1:no_of_hypothesis
 	%adaboost_model.parameters{turn} = tr_func_handle(train_set,samples_weight,labels);
-    adaboost_model.parameters{turn} = classregtree(train_set,labels,'method','classification');
+    adaboost_model.parameters{turn} = classregtree(train_set,labels,'method','classification','weights',samples_weight);
 
 	[L,hits,error_rate] = te_func_handle(adaboost_model.parameters{turn},train_set,samples_weight,labels);
 	if(error_rate==1)
