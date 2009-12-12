@@ -20,7 +20,7 @@
 % te_n = 20;
 weak_learner_n =20;
 
-M = importdata('../data/yellow-small+adult-stretch.data', ',');
+M = importdata('../data/Balony/yellow-small+adult-stretch.data', ',');
 %M = importdata('../data/adult+stretch.data', ',');
 tr_n = size(M,1);
 te_n = size(M,1);
