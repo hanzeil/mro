@@ -44,8 +44,8 @@ error_rate = sum(sample_weights(ind~=true_labels));
 L = zeros(length(ind),2);
 L(ind==1,1) = 1;
 L(ind==2,2) = 1;
-ind
-L
-hits
-error_rate
+% ind
+% L
+% hits
+% error_rate
 

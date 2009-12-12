@@ -24,8 +24,8 @@ M = importdata('../data/Balony/yellow-small+adult-stretch.data', ',');
 %M = importdata('../data/adult+stretch.data', ',');
 tr_n = size(M,1);
 te_n = size(M,1);
-tr_set = M(:,[1:4]);
-te_set = M(:,[1:4]);
+tr_set = M(:,1:4);
+te_set = M(:,1:4);
 
 tr_labels =  M(:,5);
 te_labels =  M(:,5);
@@ -65,6 +65,8 @@ for i=1:weak_learner_n
 	[L_te,hits_te] = ADABOOST_te(adaboost_model,@threshold_te,te_set,te_labels);
 	te_error(i) = (te_n-hits_te)/te_n;
 end
+
+%view(adaboost_model.parameters{1})
 
 subplot(2,2,3); 
 plot(1:weak_learner_n,tr_error);
