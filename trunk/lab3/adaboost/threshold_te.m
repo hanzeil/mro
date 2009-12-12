@@ -41,9 +41,14 @@ ind = str2double(eval(model,test_set));
 hits = sum(ind==true_labels);
 error_rate = sum(sample_weights(ind~=true_labels));
 
-L = zeros(length(ind),2);
-L(ind==1,1) = 1;
-L(ind==2,2) = 1;
+classes=length(unique(true_labels));
+L = zeros(length(ind),classes);
+
+for i=1:classes
+    L(ind==i,i) = 1;
+end
+%L(ind==1,1) = 1;
+%L(ind==2,2) = 1;
 % ind
 % L
 % hits

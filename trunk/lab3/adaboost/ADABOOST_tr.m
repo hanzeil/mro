@@ -1,4 +1,4 @@
-function adaboost_model = ADABOOST_tr(tr_func_handle, te_func_handle, train_set, labels, no_of_hypothesis)
+function adaboost_model = ADABOOST_tr(train_set, labels, no_of_hypothesis)
 %
 % ADABOOST TRAINING: A META-LEARNING ALGORITHM
 %  adaboost_model = ADABOOST_tr(tr_func_handle,te_func_handle,
@@ -63,16 +63,16 @@ function adaboost_model = ADABOOST_tr(tr_func_handle, te_func_handle, train_set,
 %
 
 adaboost_model = struct('weights',zeros(1,no_of_hypothesis),...
-						'parameters',[]); %cell(1,no_of_hypothesis));
+						'decTrees',[]); %cell(1,no_of_hypothesis));
 
 sample_n = size(train_set,1);
 samples_weight = ones(sample_n,1)/sample_n;
 
 for turn=1:no_of_hypothesis
 	%adaboost_model.parameters{turn} = tr_func_handle(train_set,samples_weight,labels);
-    adaboost_model.parameters{turn} = classregtree(train_set,labels,'method','classification','weights',samples_weight);
+    adaboost_model.decTrees{turn} = classregtree(train_set,labels,'method','classification','weights',samples_weight);
 
-	[L,hits,error_rate] = te_func_handle(adaboost_model.parameters{turn},train_set,samples_weight,labels);
+	[L,hits,error_rate] = threshold_te(adaboost_model.decTrees{turn},train_set,samples_weight,labels);
 	if(error_rate==1)
 		error_rate=1-eps;
 	elseif(error_rate==0)
@@ -88,10 +88,10 @@ for turn=1:no_of_hypothesis
 	samples_weight(t_labeled) = samples_weight(t_labeled)*...
 					((error_rate)/(1-error_rate));				
 
-	% Normalization
+	% Normalizacja
 	samples_weight = samples_weight/sum(samples_weight);
 end
 
-% Normalization
+% Normalizacja
 adaboost_model.weights=adaboost_model.weights/sum(adaboost_model.weights);
 
