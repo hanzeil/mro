@@ -38,37 +38,23 @@ te_labels =  M(:,5);
 
 % Displaying the training and testing sets
 figure;
-subplot(2,2,1);
-hold on; axis square;
-indices = tr_labels==1;
-plot(tr_set(indices,1),tr_set(indices,2),'b*');
-indices = ~indices;
-plot(tr_set(indices,1),tr_set(indices,2),'r*');
-title('Training set');
 
-subplot(2,2,2);
-hold on; axis square;
-indices = te_labels==1;
-plot(te_set(indices,1),te_set(indices,2),'b*');
-indices = ~indices;
-plot(te_set(indices,1),te_set(indices,2),'r*');
-title('Testing set');
 
 % Training and testing error rates
 tr_error = zeros(1,weak_learner_n);
 te_error = zeros(1,weak_learner_n);
 
 for i=1:weak_learner_n
-	adaboost_model = ADABOOST_tr(@threshold_tr,@threshold_te,tr_set,tr_labels,i);
-	[L_tr,hits_tr] = ADABOOST_te(adaboost_model,@threshold_te,tr_set,tr_labels);
+	adaboost_model = ADABOOST_tr(tr_set,tr_labels,i);
+	[L_tr,hits_tr] = ADABOOST_te(adaboost_model,tr_set,tr_labels);
 	tr_error(i) = (tr_n-hits_tr)/tr_n;
-	[L_te,hits_te] = ADABOOST_te(adaboost_model,@threshold_te,te_set,te_labels);
+	[L_te,hits_te] = ADABOOST_te(adaboost_model,te_set,te_labels);
 	te_error(i) = (te_n-hits_te)/te_n;
 end
 
-%view(adaboost_model.parameters{1})
+%view(adaboost_model.decTrees{1})
 
-subplot(2,2,3); 
+subplot(1,2,1); 
 plot(1:weak_learner_n,tr_error);
 axis([1,weak_learner_n,0,1]);
 title('Training Error');
@@ -76,7 +62,7 @@ xlabel('weak classifier number');
 ylabel('error rate');
 grid on;
 
-subplot(2,2,4); axis square;
+subplot(1,2,2); axis square;
 plot(1:weak_learner_n,te_error);
 axis([1,weak_learner_n,0,1]);
 title('Testing Error');
