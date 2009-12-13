@@ -51,9 +51,9 @@ function [L,hits] = AdaBoostEval(adaWeigths,decTrees,test_set,...
 hypothesis_n = length(adaWeigths);
 sample_n = size(test_set,1);
 class_n = length(unique(true_labels));
-temp_L = zeros(sample_n,class_n,hypothesis_n);		% likelihoods for each weak classifier
+temp_L = zeros(sample_n,class_n,hypothesis_n);
 
-% for each weak classifier, likelihoods of test samples are collected
+% dla ka¿dej iteracji przydzielamy klasy dla poszczególnych przyk³adów
 for i=1:hypothesis_n
 	[temp_L(:,:,i),hits,error_rate] = EvalSample(decTrees{i},...
 													 test_set,ones(sample_n,1),true_labels);

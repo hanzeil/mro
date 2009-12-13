@@ -13,11 +13,6 @@
 % version: 1.0
 % date: 21/05/2007
 
-
-% Creating the training and testing sets
-%
-% tr_n = 20;
-% te_n = 20;
 weak_learner_n =10;
 
 M = importdata('../data/Balony/yellow-small+adult-stretch.data', ',');
@@ -30,17 +25,6 @@ te_set = M(:,1:4);
 tr_labels =  M(:,5);
 te_labels =  M(:,5);
 
-% tr_set = abs(rand(tr_n,2))*100;
-% te_set = abs(rand(te_n,2))*100;
-% 
-% tr_labels = (tr_set(:,1)-tr_set(:,2) > 0) + 1;
-% te_labels = (te_set(:,1)-te_set(:,2) > 0) + 1;
-
-% Displaying the training and testing sets
-figure;
-
-
-% Training and testing error rates
 tr_error = zeros(1,weak_learner_n);
 te_error = zeros(1,weak_learner_n);
 
@@ -53,7 +37,7 @@ for i=1:weak_learner_n
 end
 
 %view(adaboost_model.decTrees{1})
-
+figure;
 subplot(1,2,1); 
 plot(1:weak_learner_n,tr_error);
 axis([1,weak_learner_n,0,1]);
