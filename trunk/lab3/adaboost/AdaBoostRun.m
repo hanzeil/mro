@@ -1,6 +1,8 @@
 learn_iteration =10;
 
-M = importdata('../data/Balony/yellow-small+adult-stretch.data', ',');
+%M = importdata('../data/Balony/yellow-small+adult-stretch.data', ',');
+%M = importdata('../data/Spam/spambase.data', ',');
+M = importdata('../data/Ozon/onehr.data', ',');
 %M = importdata('../data/Balony/adult+stretch.data', ',');
 tr_n = size(M,1);
 te_n = size(M,1);
@@ -10,6 +12,10 @@ te_set = M(:,1:size(M,2)-1);
 tr_labels =  M(:,size(M,2));
 te_labels =  M(:,size(M,2));
 
+for j=1:size(M,1)
+    tr_labels(j)=tr_labels(j)+1;
+    te_labels(j)=te_labels(j)+1;
+end
 tr_error = zeros(1,learn_iteration);
 te_error = zeros(1,learn_iteration);
 
