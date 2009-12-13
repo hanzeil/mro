@@ -1,4 +1,4 @@
-function [L,hits,error_rate] = threshold_te(decTree,test_set,sample_weights,true_labels)
+function [L,hits,error_rate] = EvalSample(decTree,test_set,sample_weights,true_labels)
 %
 % TESTING THRESHOLD CLASSIFIER
 %
