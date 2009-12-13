@@ -58,13 +58,13 @@ temp_L = zeros(sample_n,class_n,hypothesis_n);
 for i=1:hypothesis_n
 	[temp_L(:,:,i),hits,error_rate] = EvalSample(decTrees{i},...
 													 test_set,ones(sample_n,1),true_labels);
-    temp_L(:,:,i)
+    %temp_L(:,:,i)
 	temp_L(:,:,i) = temp_L(:,:,i)*adaWeigths(i);
-    temp_L(:,:,i)
+    %temp_L(:,:,i)
 end
 
 L = sum(temp_L,3);
-L
+%L
 %likelihood2class(L)
 
 [sample_n,class_n] = size(L);
@@ -76,7 +76,7 @@ for i=1:sample_n
 	classes(i) = find(maxs(i,:),1);
 end
 
-classes
+%classes
 
 hits = sum(classes==true_labels);
 
