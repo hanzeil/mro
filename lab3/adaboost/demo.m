@@ -18,10 +18,10 @@
 %
 % tr_n = 20;
 % te_n = 20;
-weak_learner_n =20;
+weak_learner_n =10;
 
 M = importdata('../data/Balony/yellow-small+adult-stretch.data', ',');
-%M = importdata('../data/adult+stretch.data', ',');
+%M = importdata('../data/Balony/adult+stretch.data', ',');
 tr_n = size(M,1);
 te_n = size(M,1);
 tr_set = M(:,1:4);

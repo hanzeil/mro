@@ -20,10 +20,13 @@ function classes = likelihood2class(likelihoods)
 %
 
 [sample_n,class_n] = size(likelihoods);
+
+%dyskretyzacja do 0-1
 maxs = (likelihoods==repmat(max(likelihoods,[],2),[1,class_n]));
 
 classes=zeros(sample_n,1);
 for i=1:sample_n
+    %znalezienie dla ktorej klasy mamy niezerow¹ wartoœæ
 	classes(i) = find(maxs(i,:),1);
 end
 

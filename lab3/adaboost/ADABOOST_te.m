@@ -57,9 +57,13 @@ temp_L = zeros(sample_n,class_n,hypothesis_n);		% likelihoods for each weak clas
 for i=1:hypothesis_n
 	[temp_L(:,:,i),hits,error_rate] = threshold_te(adaboost_model.decTrees{i},...
 													 test_set,ones(sample_n,1),true_labels);
+    temp_L(:,:,i)
 	temp_L(:,:,i) = temp_L(:,:,i)*adaboost_model.weights(i);
+    temp_L(:,:,i)
 end
 
 L = sum(temp_L,3);
+L
+likelihood2class(L)
 hits = sum(likelihood2class(L)==true_labels);
 

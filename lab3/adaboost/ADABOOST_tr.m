@@ -19,7 +19,7 @@ function adaboost_model = ADABOOST_tr(train_set, labels, no_of_hypothesis)
 %                    model: the output model of the training phase, which can 
 %                        consists of parameters estimated.
 %
-%        [L,hits,error_rate] = test_func(model,test_set,sample_weights,true_labels)
+%        [L,hits,error] = test_func(model,test_set,sample_weights,true_labels)
 %                    model: the output of train_func
 %                    test_set: a KxD dimensional matrix, each of whose row is a
 %                        testing sample in a D dimensional feature space.
@@ -30,7 +30,7 @@ function adaboost_model = ADABOOST_tr(train_set, labels, no_of_hypothesis)
 %                    L: a Dx1-array with the predicted labels of the samples.
 %                    hits: number of hits, calculated with the comparison of L and
 %                        true_labels.
-%                    error_rate: number of misses divided by the number of samples.
+%                    error: number of misses divided by the number of samples.
 %        
 %
 %        'train_set' contains the samples for training and it is NxD matrix
@@ -69,24 +69,26 @@ sample_n = size(train_set,1);
 samples_weight = ones(sample_n,1)/sample_n;
 
 for turn=1:no_of_hypothesis
-	%adaboost_model.parameters{turn} = tr_func_handle(train_set,samples_weight,labels);
     adaboost_model.decTrees{turn} = classregtree(train_set,labels,'method','classification','weights',samples_weight);
 
-	[L,hits,error_rate] = threshold_te(adaboost_model.decTrees{turn},train_set,samples_weight,labels);
-	if(error_rate==1)
-		error_rate=1-eps;
-	elseif(error_rate==0)
-		error_rate=eps;
+	[L,hits,error] = threshold_te(adaboost_model.decTrees{turn},train_set,samples_weight,labels);
+	if(error==1)
+		error=1-eps;
+	elseif(error==0)
+		error=eps;
 	end
 
 	% The weight of the turn-th weak classifier
-	adaboost_model.weights(turn) = log10((1-error_rate)/error_rate);
+    beta = error/(1-error);
+	adaboost_model.weights(turn) = log10(1/beta);
 	C=likelihood2class(L);
 	t_labeled=(C==labels);	% true labeled samples
-
+    L
+    t_labeled
 	% Importance of the true classified samples is decreased for the next weak classifier
-	samples_weight(t_labeled) = samples_weight(t_labeled)*...
-					((error_rate)/(1-error_rate));				
+	samples_weight(t_labeled) = samples_weight(t_labeled)*beta;				
+% 	samples_weight(t_labeled) = samples_weight(t_labeled)*...
+% 					exp(-1*	adaboost_model.weights(turn)		
 
 	% Normalizacja
 	samples_weight = samples_weight/sum(samples_weight);
