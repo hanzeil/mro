@@ -1,4 +1,4 @@
-function [L,hits] = ADABOOST_te(adaboost_model,test_set,...
+function [L,hits] = ADABOOST_te(adaWeigths,decTrees,test_set,...
                                 true_labels)
 %
 % ADABOOST TESTING
@@ -48,17 +48,17 @@ function [L,hits] = ADABOOST_te(adaboost_model,test_set,...
 % date: 21/05/2007
 %
 
-hypothesis_n = length(adaboost_model.weights);
+hypothesis_n = length(adaWeigths);
 sample_n = size(test_set,1);
 class_n = length(unique(true_labels));
 temp_L = zeros(sample_n,class_n,hypothesis_n);		% likelihoods for each weak classifier
 
 % for each weak classifier, likelihoods of test samples are collected
 for i=1:hypothesis_n
-	[temp_L(:,:,i),hits,error_rate] = threshold_te(adaboost_model.decTrees{i},...
+	[temp_L(:,:,i),hits,error_rate] = threshold_te(decTrees{i},...
 													 test_set,ones(sample_n,1),true_labels);
     temp_L(:,:,i)
-	temp_L(:,:,i) = temp_L(:,:,i)*adaboost_model.weights(i);
+	temp_L(:,:,i) = temp_L(:,:,i)*adaWeigths(i);
     temp_L(:,:,i)
 end
 

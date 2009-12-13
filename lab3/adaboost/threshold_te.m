@@ -1,4 +1,4 @@
-function [L,hits,error_rate] = threshold_te(model,test_set,sample_weights,true_labels)
+function [L,hits,error_rate] = threshold_te(decTree,test_set,sample_weights,true_labels)
 %
 % TESTING THRESHOLD CLASSIFIER
 %
@@ -36,7 +36,7 @@ function [L,hits,error_rate] = threshold_te(model,test_set,sample_weights,true_l
 % 	ind = (feat<model.min_error_thr)+1;
 % end
 
-ind = str2double(eval(model,test_set));
+ind = str2double(eval(decTree,test_set));
 
 hits = sum(ind==true_labels);
 error_rate = sum(sample_weights(ind~=true_labels));
