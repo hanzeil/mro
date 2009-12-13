@@ -46,9 +46,9 @@ te_error = zeros(1,weak_learner_n);
 
 for i=1:weak_learner_n
 	[trees,weigths] = AdaBoost(tr_set,tr_labels,i);
-	[L_tr,hits_tr] = ADABOOST_te(weigths,trees,tr_set,tr_labels);
+	[L_tr,hits_tr] = AdaBoostEval(weigths,trees,tr_set,tr_labels);
 	tr_error(i) = (tr_n-hits_tr)/tr_n;
-	[L_te,hits_te] = ADABOOST_te(weigths,trees,te_set,te_labels);
+	[L_te,hits_te] = AdaBoostEval(weigths,trees,te_set,te_labels);
 	te_error(i) = (te_n-hits_te)/te_n;
 end
 

@@ -64,6 +64,18 @@ end
 
 L = sum(temp_L,3);
 L
-likelihood2class(L)
-hits = sum(likelihood2class(L)==true_labels);
+%likelihood2class(L)
+
+[sample_n,class_n] = size(L);
+%dyskretyzacja do 0-1
+maxs = (L==repmat(max(L,[],2),[1,class_n]));
+classes=zeros(sample_n,1);
+for i=1:sample_n
+    %znalezienie dla ktorej klasy mamy niezerow¹ wartoœæ
+	classes(i) = find(maxs(i,:),1);
+end
+
+classes
+
+hits = sum(classes==true_labels);
 
