@@ -82,7 +82,7 @@ for t=1:iterations
     beta = error_t/(1-error_t);
 	adaWeigths(t) = log10(1/beta);
     
-    L
+    %L
 	%C=likelihood2class(L);
     C=zeros(size(train_set,1),1);
     for i=1:size(train_set,1)
@@ -91,8 +91,8 @@ for t=1:iterations
     end
     %poprawnie sklasyfikowane
 	correct_labels=(C==labels);
-    L
-    correct_labels
+    %L
+    %correct_labels
 	% dla poprawnie sklasyfikowanych przemna¿amy przez wspó³czynnik
 	weigths(correct_labels) = weigths(correct_labels)*beta;					
 
