@@ -42,6 +42,7 @@ hits = sum(ind==true_labels);
 error_rate = sum(sample_weights(ind~=true_labels));
 
 classes=length(unique(true_labels));
+if (classes == 1) classes = 2; end
 L = zeros(length(ind),classes);
 
 for i=1:classes
