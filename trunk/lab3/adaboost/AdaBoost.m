@@ -71,7 +71,7 @@ weigths = ones(samples_count,1)/samples_count;
 for t=1:iterations
     decTrees{t} = classregtree(train_set,labels,'method','classification','weights',weigths);
 
-	[L,hits,error_t] = threshold_te(decTrees{t},train_set,weigths,labels);
+	[L,hits,error_t] = EvalSample(decTrees{t},train_set,weigths,labels);
 	if(error_t==1)
 		error_t=1-eps;
 	elseif(error_t==0)

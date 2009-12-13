@@ -55,7 +55,7 @@ temp_L = zeros(sample_n,class_n,hypothesis_n);		% likelihoods for each weak clas
 
 % for each weak classifier, likelihoods of test samples are collected
 for i=1:hypothesis_n
-	[temp_L(:,:,i),hits,error_rate] = threshold_te(decTrees{i},...
+	[temp_L(:,:,i),hits,error_rate] = EvalSample(decTrees{i},...
 													 test_set,ones(sample_n,1),true_labels);
     temp_L(:,:,i)
 	temp_L(:,:,i) = temp_L(:,:,i)*adaWeigths(i);
