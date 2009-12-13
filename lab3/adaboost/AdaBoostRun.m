@@ -39,20 +39,46 @@
 
 %**************************************************************************
 %pkt 5 - baza - Heart
-TR = importdata('../data/Heart/heart_TR75.data', ',');
-TE = importdata('../data/Heart/heart_TE25.data', ',');
+% TR = importdata('../data/Heart/heart_TR75.data', ',');
+% TE = importdata('../data/Heart/heart_TE25.data', ',');
+% tr_n = size(TR,1);
+% te_n = size(TE,1);
+% tr_set = TR(:,2:size(TR,2));
+% te_set = TE(:,2:size(TE,2));
+% tr_labels =  TR(:,1);
+% te_labels =  TE(:,1);
+%dzia³a ok
+%**************************************************************************
+
+%**************************************************************************
+%pkt 4 - baza - Cancer
+% TR = importdata('../data/Cancer/cancer_TR25.data', ',');
+% TE = importdata('../data/Cancer/cancer_TE25.data', ',');
+% tr_n = size(TR,1);
+% te_n = size(TE,1);
+% tr_set = TR(:,3:size(TR,2));
+% te_set = TE(:,3:size(TE,2));
+% tr_labels =  TR(:,2);
+% te_labels =  TE(:,2);
+%dzia³a ok, TR po 3 oteracjach 0 b³êdów, TE w okolicach 0,05
+%**************************************************************************
+
+%**************************************************************************
+%pkt 5 - baza - Cancer
+TR = importdata('../data/Cancer/cancer_TR75.data', ',');
+TE = importdata('../data/Cancer/cancer_TE25.data', ',');
 tr_n = size(TR,1);
 te_n = size(TE,1);
-tr_set = TR(:,2:size(TR,2));
-te_set = TE(:,2:size(TE,2));
-tr_labels =  TR(:,1);
-te_labels =  TE(:,1);
-%dzia³a ok
+tr_set = TR(:,3:size(TR,2));
+te_set = TE(:,3:size(TE,2));
+tr_labels =  TR(:,2);
+te_labels =  TE(:,2);
+%dzia³a ok, TR po 3 oteracjach 0 b³êdów, TE w okolicach 0,1
 %**************************************************************************
 
 
 %M = importdata('../data/Balony/yellow-small+adult-stretch.data', ',');
-% M = importdata('../data/Spam/spambase.data', ',');
+%M = importdata('../data/Spam/spambase.data', ',');
 %M = importdata('../data/Ozon/onehr.data', ',');
 %TR = importdata('../data/Heart/heart.data', ',');
 %TE = importdata('../data/Heart/heart.data', ',');

@@ -51,6 +51,7 @@ function [L,hits] = AdaBoostEval(adaWeigths,decTrees,test_set,...
 hypothesis_n = length(adaWeigths);
 sample_n = size(test_set,1);
 class_n = length(unique(true_labels));
+if (class_n == 1) class_n = 2; end
 temp_L = zeros(sample_n,class_n,hypothesis_n);
 
 % dla ka¿dej iteracji przydzielamy klasy dla poszczególnych przyk³adów
