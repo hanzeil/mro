@@ -82,7 +82,7 @@ for t=1:iterations
     beta = error_t/(1-error_t);
 	adaWeigths(t) = log10(1/beta);
     
-    
+    L
 	%C=likelihood2class(L);
     C=zeros(size(train_set,1),1);
     for i=1:size(train_set,1)
