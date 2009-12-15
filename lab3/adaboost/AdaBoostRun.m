@@ -13,14 +13,14 @@
 
 %**************************************************************************
 %pkt 5 - baza - SPAM
-TR = importdata('../data/Spam/spambase_TR75.data', ',');
-TE = importdata('../data/Spam/spambase_TE25.data', ',');
-tr_n = size(TR,1);
-te_n = size(TE,1);
-tr_set = TR(:,1:size(TR,2)-1);
-te_set = TE(:,1:size(TE,2)-1);
-tr_labels =  TR(:,size(TR,2));
-te_labels =  TE(:,size(TE,2));
+% TR = importdata('../data/Spam/spambase_TR75.data', ',');
+% TE = importdata('../data/Spam/spambase_TE25.data', ',');
+% tr_n = size(TR,1);
+% te_n = size(TE,1);
+% tr_set = TR(:,1:size(TR,2)-1);
+% te_set = TE(:,1:size(TE,2)-1);
+% tr_labels =  TR(:,size(TR,2));
+% te_labels =  TE(:,size(TE,2));
 %dzia³a ok, od 3 iteracji 0 b³êdów dla TR i od 1 dla TE
 %**************************************************************************
 
@@ -65,14 +65,14 @@ te_labels =  TE(:,size(TE,2));
 
 %**************************************************************************
 %pkt 5 - baza - Cancer
-% TR = importdata('../data/Cancer/cancer_TR75.data', ',');
-% TE = importdata('../data/Cancer/cancer_TE25.data', ',');
-% tr_n = size(TR,1);
-% te_n = size(TE,1);
-% tr_set = TR(:,3:size(TR,2));
-% te_set = TE(:,3:size(TE,2));
-% tr_labels =  TR(:,2);
-% te_labels =  TE(:,2);
+TR = importdata('../data/Cancer/cancer_TR75.data', ',');
+TE = importdata('../data/Cancer/cancer_TE25.data', ',');
+tr_n = size(TR,1);
+te_n = size(TE,1);
+tr_set = TR(:,3:size(TR,2));
+te_set = TE(:,3:size(TE,2));
+tr_labels =  TR(:,2);
+te_labels =  TE(:,2);
 %dzia³a ok, TR po 3 oteracjach 0 b³êdów, TE w okolicach 0,1
 %**************************************************************************
 
