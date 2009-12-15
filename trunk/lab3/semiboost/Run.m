@@ -1,133 +1,119 @@
 %**************************************************************************
-%pkt 4 - baza - SPAM
-% TR = importdata('../data/Spam/spambase_TR25.data', ',');
-% TE = importdata('../data/Spam/spambase_TE25.data', ',');
-% tr_n = size(TR,1);
-% te_n = size(TE,1);
-% tr_set = TR(:,1:size(TR,2)-1);
-% te_set = TE(:,1:size(TE,2)-1);
-% tr_labels =  TR(:,size(TR,2));
-% te_labels =  TE(:,size(TE,2));
-%dzia³a ok, od 1 iteracji 0 b³êdów dla TR i TE
-%**************************************************************************
-
-%**************************************************************************
-%pkt 5 - baza - SPAM
-% TR = importdata('../data/Spam/spambase_TR75.data', ',');
-% TE = importdata('../data/Spam/spambase_TE25.data', ',');
-% tr_n = size(TR,1);
-% te_n = size(TE,1);
-% tr_set = TR(:,1:size(TR,2)-1);
-% te_set = TE(:,1:size(TE,2)-1);
-% tr_labels =  TR(:,size(TR,2));
-% te_labels =  TE(:,size(TE,2));
-% %dzia³a ok, od 3 iteracji 0 b³êdów dla TR i od 1 dla TE
-%**************************************************************************
-
-%**************************************************************************
-%pkt 4 - baza - Heart
-% TR = importdata('../data/Heart/heart_TR50.data', ',');
-% TE = importdata('../data/Heart/heart_TE25.data', ',');
-% tr_n = size(TR,1);
-% te_n = size(TE,1);
-% tr_set = TR(:,2:size(TR,2));
-% te_set = TE(:,2:size(TE,2));
-% tr_labels =  [];%TR(:,1);
-% te_labels =  TE(:,1);
-%dzia³a ok
-%**************************************************************************
-
-%**************************************************************************
-%pkt 5 - baza - Heart
-% TR = importdata('../data/Heart/heart_TR75.data', ',');
-% TE = importdata('../data/Heart/heart_TE25.data', ',');
-% tr_n = size(TR,1);
-% te_n = size(TE,1);
-% tr_set = TR(:,2:size(TR,2));
-% te_set = TE(:,2:size(TE,2));
-% tr_labels =  TR(:,1);
-% te_labels =  TE(:,1);
-%dzia³a ok
-%**************************************************************************
-
-%**************************************************************************
-%pkt 4 - baza - Cancer
-% TR = importdata('../data/Cancer/cancer_TR25.data', ',');
-% TE = importdata('../data/Cancer/cancer_TE25.data', ',');
-% tr_n = size(TR,1);
-% te_n = size(TE,1);
-% tr_set = TR(:,3:size(TR,2));
-% te_set = TE(:,3:size(TE,2));
-% tr_labels =  TR(:,2);
-% te_labels =  TE(:,2);
-%dzia³a ok, TR po 3 oteracjach 0 b³êdów, TE w okolicach 0,05
-%**************************************************************************
-
-%**************************************************************************
-%pkt 5 - baza - Cancer
-% TR = importdata('../data/Cancer/cancer_TR75.data', ',');
-% TE = importdata('../data/Cancer/cancer_TE25.data', ',');
-% tr_n = size(TR,1);
-% te_n = size(TE,1);
-% tr_set = TR(:,3:size(TR,2));
-% te_set = TE(:,3:size(TE,2));
-% tr_labels =  TR(:,2);
-% te_labels =  TE(:,2);
-%dzia³a ok, TR po 3 oteracjach 0 b³êdów, TE w okolicach 0,1
-%**************************************************************************
-
-
-%**************************************************************************
-%pkt 4 - baza - balony
-TR = importdata('../data/Balony/adult+stretch_TR75.data', ',');
-TE = importdata('../data/Balony/adult+stretch_TE25.data', ',');
-tr_n = size(TR,1);
-te_n = size(TE,1);
-tr_set = TR(:,1:size(TR,2)-1);
-te_set = TE(:,1:size(TE,2)-1);
-tr_labels =  [];%TR(:,size(TR,2));
-te_labels =  TE(:,size(TE,2));
-%dzia³a ok
-%**************************************************************************
-
-
-
-%M = importdata('../data/Balony/yellow-small+adult-stretch.data', ',');
-%M = importdata('../data/Spam/spambase.data', ',');
-%M = importdata('../data/Ozon/onehr.data', ',');
-%TR = importdata('../data/Heart/heart.data', ',');
-%TE = importdata('../data/Heart/heart.data', ',');
-%M = importdata('../data/Balony/adult+stretch.data', ',');
-% TR = M;
-% TE = M;
-% tr_n = size(TR,1);
-% te_n = size(TE,1);
-% tr_set = TR(:,1:size(TR,2)-1);
-% te_set = TE(:,1:size(TE,2)-1);
+%pkt 3 - baza - SPAM 
+% TR = importdata('../data/Spam/spambase.data', ',');
+% for i=1:size(TR,2)-1
+%     TR(:,i)=mat2gray(TR(:,i));
+% end
+% pr25 = floor(0.25*size(TR,1));
+% pr50 = 2*pr25;
+% pr75 = 3*pr25;
 % 
-% tr_labels =  TR(:,size(TR,2));
-% te_labels =  TE(:,size(TE,2));
+% tr_set = TR(1:pr75, 1:size(TR,2)-1);
+% te_set = TR(pr75+1:size(TR,1), 1:size(TR,2)-1);
+% tr_labels =  TR(1:pr25, size(TR,2));
+% te_labels =  TR(pr75+1:size(TR,1), size(TR,2));
+% 
+% tr_n = size(tr_set,1);
+% te_n = size(te_set,1);
+%**************************************************************************
 
+%**************************************************************************
+%pkt 3 - baza - Heart
+% TR = importdata('../data/Heart/heart.data', ',');
+% 
+% pr25 = floor(0.25*size(TR,1));
+% pr50 = 2*pr25;
+% pr75 = 3*pr25;
+% 
+% tr_set = TR(1:pr75, 2:size(TR,2));
+% te_set = TR(pr75+1:size(TR,1), 2:size(TR,2));
+% tr_labels =  TR(1:pr25, 1);
+% te_labels =  TR(pr75+1:size(TR,1), 1);
+% 
+% tr_n = size(tr_set,1);
+% te_n = size(te_set,1);
+%**************************************************************************
+
+
+%**************************************************************************
+%pkt 3 - baza - balony
+% TR = importdata('../data/Balony/adult+stretch.data', ',');
+% 
+% pr25 = floor(0.25*size(TR,1));
+% pr50 = 2*pr25;
+% pr75 = 3*pr25;
+% 
+% tr_set = TR(1:pr75, 1:size(TR,2)-1);
+% te_set = TR(pr75+1:size(TR,1), 1:size(TR,2)-1);
+% tr_labels =  TR(1:pr25, size(TR,2));
+% te_labels =  TR(pr75+1:size(TR,1), size(TR,2));
+% 
+% tr_n = size(tr_set,1);
+% te_n = size(te_set,1);
+%**************************************************************************
+
+%**************************************************************************
+%pkt 3 - baza - Cancer 
+TR = importdata('../data/Cancer/cancer.data', ',');
+
+for i=3:size(TR,2)
+    TR(:,i)=mat2gray(TR(:,i));
+end
+
+pr25 = floor(0.25*size(TR,1));
+pr50 = 2*pr25;
+pr75 = 3*pr25;
+
+tr_set = TR(1:pr75, 3:size(TR,2));
+tr_set=mat2gray(tr_set);
+te_set = TR(pr75+1:size(TR,1), 3:size(TR,2));
+te_set=mat2gray(te_set);
+tr_labels =  TR(1:pr25, 2);
+te_labels =  TR(pr75+1:size(TR,1), 2);
+
+tr_n = size(tr_set,1);
+te_n = size(te_set,1);
+
+%**************************************************************************
+
+   
 learn_iteration =10;
 
 for j=1:size(tr_labels,1)
-    tr_labels(j)=tr_labels(j)+1;
+    if(tr_labels(j)~=1)
+        tr_labels(j)=-1;
+    end
 end
 for j=1:size(te_labels,1)
-    te_labels(j)=te_labels(j)+1;
+    %te_labels(j)=te_labels(j)+1;
+    if(te_labels(j)~=1)
+        te_labels(j)=-1;
+    end
 end
 tr_error = zeros(1,learn_iteration);
 te_error = zeros(1,learn_iteration);
 
+S=zeros(size(tr_set,1));
+for i=1:size(tr_set,1) 
+    for j=1:size(tr_set,1)
+        difr=tr_set(i,:)-tr_set(j,:);
+        sqr=difr.^2;
+        dis = -(sum(sqr));
+        tmp=exp(dis);
+        S(i,j)=tmp;
+    end    
+end
+
+
 for i=1:learn_iteration
-	[trees,weigths] = SemiBoost(tr_set,tr_labels,i);
-% 	[L_tr,hits_tr] = SemiBoostEval(weigths,trees,tr_set,tr_labels);
-% 	tr_error(i) = (tr_n-hits_tr)/tr_n;
-	[L_te,hits_te] = SemiBoostEval(weigths,trees,te_set,te_labels);
+	[trees,weigths] = SemiBoost(S,tr_set,tr_labels,i);
+	hits_tr = SemiBoostTest(weigths,trees,tr_set(1:pr25,:),tr_labels);
+	tr_error(i) = (pr25-hits_tr)/pr25;
+    hits_te=SemiBoostTest(weigths,trees,te_set,te_labels);
 	te_error(i) = (te_n-hits_te)/te_n;
 end
 
-%view(adaboost_model.decTrees{1})
+
 figure;
 subplot(1,2,1); 
 plot(1:learn_iteration,tr_error);
