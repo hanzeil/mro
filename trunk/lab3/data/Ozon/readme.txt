@@ -1,1 +1,0 @@
-nie usuniête klasy z tr50
