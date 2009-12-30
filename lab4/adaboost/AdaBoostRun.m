@@ -23,21 +23,21 @@
 % te_labels =  TE(:,size(TE,2));
 
 
-TR = importdata('../data/Spam/spambase.data', ',');
-for i=1:size(TR,2)-1
-    TR(:,i)=mat2gray(TR(:,i));
-end
-pr25 = floor(0.25*size(TR,1));
-pr50 = 2*pr25;
-pr75 = 3*pr25;
-
-tr_set = TR(1:pr75, 1:size(TR,2)-1);
-te_set = TR(pr75+1:size(TR,1), 1:size(TR,2)-1);
-tr_labels =  TR(1:pr75, size(TR,2));
-te_labels =  TR(pr75+1:size(TR,1), size(TR,2));
-
-tr_n = size(tr_set,1);
-te_n = size(te_set,1);
+% TR = importdata('../data/Spam/spambase.data', ',');
+% for i=1:size(TR,2)-1
+%     TR(:,i)=mat2gray(TR(:,i));
+% end
+% pr25 = floor(0.25*size(TR,1));
+% pr50 = 2*pr25;
+% pr75 = 3*pr25;
+% 
+% tr_set = TR(1:pr75, 1:size(TR,2)-1);
+% te_set = TR(pr75+1:size(TR,1), 1:size(TR,2)-1);
+% tr_labels =  TR(1:pr75, size(TR,2));
+% te_labels =  TR(pr75+1:size(TR,1), size(TR,2));
+% 
+% tr_n = size(tr_set,1);
+% te_n = size(te_set,1);
 
 %dzia³a ok, od 3 iteracji 0 b³êdów dla TR i od 1 dla TE
 %**************************************************************************
@@ -83,14 +83,14 @@ te_n = size(te_set,1);
 
 %**************************************************************************
 %pkt 5 - baza - Cancer
-% TR = importdata('../data/Cancer/cancer_TR75.data', ',');
-% TE = importdata('../data/Cancer/cancer_TE25.data', ',');
-% tr_n = size(TR,1);
-% te_n = size(TE,1);
-% tr_set = TR(:,3:size(TR,2));
-% te_set = TE(:,3:size(TE,2));
-% tr_labels =  TR(:,2);
-% te_labels =  TE(:,2);
+TR = importdata('../data/Cancer/cancer_TR75.data', ',');
+TE = importdata('../data/Cancer/cancer_TE25.data', ',');
+tr_n = size(TR,1);
+te_n = size(TE,1);
+tr_set = TR(:,3:size(TR,2));
+te_set = TE(:,3:size(TE,2));
+tr_labels =  TR(:,2);
+te_labels =  TE(:,2);
 %dzia³a ok, TR po 3 oteracjach 0 b³êdów, TE w okolicach 0,1
 %**************************************************************************
 
@@ -111,7 +111,7 @@ te_n = size(te_set,1);
 % tr_labels =  TR(:,size(TR,2));
 % te_labels =  TE(:,size(TE,2));
 
-learn_iteration =10;
+learn_iteration =15;
 
 for j=1:size(tr_labels,1)
     tr_labels(j)=tr_labels(j)+1;
@@ -121,19 +121,33 @@ for j=1:size(te_labels,1)
 end
 tr_error = zeros(1,learn_iteration);
 te_error = zeros(1,learn_iteration);
+pcm_tr_error = zeros(1,learn_iteration);
+pcm_te_error = zeros(1,learn_iteration);
 
+[pc,z,latent,tsquare] = princomp(tr_set);
 
+pcm_tr_set=tr_set*pc(:,1:5);
+pcm_te_set=te_set*pc(:,1:5);
 
 for i=1:learn_iteration
 	[trees,weigths] = AdaBoost(tr_set,tr_labels,i);
 	[L_tr,hits_tr,roct] = AdaBoostEval(weigths,trees,tr_set,tr_labels);
 	tr_error(i) = (tr_n-hits_tr)/tr_n;
 	[L_te,hits_te,roct] = AdaBoostEval(weigths,trees,te_set,te_labels);
-
-	te_error(i) = (te_n-hits_te)/te_n;
+    te_error(i) = (te_n-hits_te)/te_n;
+    
     [x y]=perfcurve(roct(:,2),roct(:,1),1);
     X(i)=x(2); 
     Y(i)=y(2);
+    %pcm
+    
+    [trees,weigths] = AdaBoost(pcm_tr_set,tr_labels,i);
+	[L_tr,hits_tr,roct] = AdaBoostEval(weigths,trees,pcm_tr_set,tr_labels);
+    pcm_tr_error(i) = (tr_n-hits_tr)/tr_n;
+	
+    [L_te,hits_te,roct] = AdaBoostEval(weigths,trees,pcm_te_set,te_labels);
+    pcm_te_error(i) = (te_n-hits_te)/te_n;
+    
 end
 
 % [tpr,fpr,thresholds]=roc(roct(:,2),roct(:,1));
@@ -171,7 +185,7 @@ P
 
 %view(adaboost_model.decTrees{1})
 figure;
-subplot(1,2,1); 
+subplot(2,2,1); 
 plot(1:learn_iteration,tr_error);
 axis([1,learn_iteration,0,1]);
 title('Training Error');
@@ -179,10 +193,26 @@ xlabel('weak classifier number');
 ylabel('error rate');
 grid on;
 
-subplot(1,2,2); axis square;
+subplot(2,2,2); axis square;
 plot(1:learn_iteration,te_error);
 axis([1,learn_iteration,0,1]);
 title('Testing Error');
+xlabel('weak classifier number');
+ylabel('error rate');
+grid on;
+
+subplot(2,2,3); 
+plot(1:learn_iteration,pcm_tr_error);
+axis([1,learn_iteration,0,1]);
+title('PCM Training Error');
+xlabel('weak classifier number');
+ylabel('error rate');
+grid on;
+
+subplot(2,2,4); axis square;
+plot(1:learn_iteration,pcm_te_error);
+axis([1,learn_iteration,0,1]);
+title('PCM Testing Error');
 xlabel('weak classifier number');
 ylabel('error rate');
 grid on;
