@@ -1,10 +1,18 @@
-
+%%----------trzeba opdaliæ wczeœniej pkt 2ab
 colors = zeros(length(te_labels),3);
 for i=1:length(te_labels)
    if(te_labels(i)==1)
-       colors(i,:)=[0 1 0];
+       if(te_labels(i)==roct(i,1))
+           colors(i,:)=[0 1 0];
+       else
+           colors(i,:)=[0 0 1];
+       end
    else
-       colors(i,:)=[1 0 0];
+       if(te_labels(i)==roct(i,1))
+           colors(i,:)=[1 0 0];
+       else
+           colors(i,:)=[0 0 0];
+       end
    end
 end
 
