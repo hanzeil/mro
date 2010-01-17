@@ -13,7 +13,7 @@ Y=mdscale(dissimilarities,2);
 
 
 scatter(Y(:,1),Y(:,2),10,colors)
-title('MDS (2D)')
+title('MDS (2D) - prawid³owy rozk³ad klas')
 
 
 % distances = pdist(Y);
@@ -27,5 +27,5 @@ title('MDS (2D)')
 figure 
 
 Y=mdscale(dissimilarities,3);
-scatter3(Y(:,1),Y(:,2),Y(:,3),5,colors)
-title('MDS (3D)')
+scatter3(Y(:,1),Y(:,2),Y(:,3),10,colors)
+title('MDS (3D) - prawid³owy rozk³ad klas')

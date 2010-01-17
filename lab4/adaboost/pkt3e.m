@@ -23,8 +23,9 @@ for i=length(tr_labels)+1:length(all_labels)
    if(all_labels(i)==1)
        colors(i,:)=[0 0 1];
    else
-       colors(i,:)=[1 1 0];
+       colors(i,:)=[0 0 0];
    end
+   
 end
 
 
@@ -51,11 +52,13 @@ dissimilarities = pdist(all_set);
 Y=mdscale(dissimilarities,3);
 
 figure
-title('MDS (2D)')
+
 scatter(Y(:,1),Y(:,2),10,colors)
+title('MDS (2D)')
 
 
 figure 
-title('MDS (3D)')
+
 scatter3(Y(:,1),Y(:,2),Y(:,3),10,colors)
+title('MDS (3D)')
 
