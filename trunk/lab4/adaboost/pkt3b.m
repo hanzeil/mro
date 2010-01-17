@@ -9,12 +9,12 @@ end
 
 
 scatter(tr_set(:,1),tr_set(:,2),10,colors)
-title('Dane pocz¹tkowe (2D)')
+title('Dane pocz¹tkowe (2D) - prawid³owy rozk³ad klas')
 
 figure
 scatter(pcm_tr_set(:,1),pcm_tr_set(:,2),10,colors)
-title('PCM (2D)')
+title('PCM (2D) - prawid³owy rozk³ad klas')
 
 figure
-title('PCM (3D)')
 scatter3(pcm_tr_set(:,1),pcm_tr_set(:,2),pcm_tr_set(:,3),10,colors)
+title('PCM (3D) - prawid³owy rozk³ad klas')

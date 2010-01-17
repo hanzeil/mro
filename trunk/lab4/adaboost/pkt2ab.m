@@ -72,7 +72,7 @@ for i=1:learn_iteration
     [L_te,classes,hits_te,roct] = AdaBoostEval(weigths,trees,pcm_te_set,te_labels);
     pcm_te_error(i) = (te_n-hits_te)/te_n;
     
-    [x y w1 auc_pcm(i) w2 w3 w4]=perfcurve(roct(:,2),roct(:,1),1);
+    [x y w1 auc_pcm(i) w2 w3 w4] = perfcurve(roct(:,2),roct(:,1),1);
     
 end
 
