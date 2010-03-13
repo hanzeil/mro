@@ -1,1 +1,0 @@
-tr50 jest z klasami
